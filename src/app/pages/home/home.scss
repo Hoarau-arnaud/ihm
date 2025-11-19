@@ -1,0 +1,60 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-left {
+  flex: 1;
+}
+
+.hero-title {
+  font-size: 2.4rem;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.hero-title span {
+  color: var(--mat-sys-primary);
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  max-width: 550px;
+  color: var(--mat-sys-on-surface-variant);
+  margin-bottom: 32px;
+}
+
+.hero-actions button {
+  margin-right: 12px;
+}
+
+.hero-tech {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+.hero-card mat-icon {
+  font-size: 32px;
+  color: var(--mat-sys-primary);
+}

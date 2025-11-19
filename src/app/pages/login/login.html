@@ -1,0 +1,41 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <h2>Connexion</h2>
+
+    @if (error()) {
+      <mat-card class="error-card">
+        {{ error() }}
+      </mat-card>
+    }
+
+    <form (ngSubmit)="login()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          name="email"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Mot de passe</mat-label>
+        <input
+          matInput
+          type="password"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          name="password"
+          required
+        />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="full-width">
+        Se connecter
+      </button>
+    </form>
+  </mat-card>
+</div>

@@ -1,0 +1,76 @@
+/* GLOBAL LAYOUT */
+.layout-container {
+  height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+  backdrop-filter: blur(12px);
+  background: rgba(25, 118, 210, 0.85); /* couleur primary avec alpha */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Desktop menu */
+.navbar-links a {
+  margin: 0 4px;
+  position: relative;
+  transition: 0.25s;
+}
+
+.navbar-links a.active,
+.navbar-links a:hover {
+  color: #fff;
+}
+
+.navbar-links a::after {
+  content: "";
+  height: 2px;
+  width: 0%;
+  background: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: width .25s;
+}
+
+.navbar-links a:hover::after,
+.navbar-links a.active::after {
+  width: 100%;
+}
+
+/* Burger visible only on mobile */
+.burger-button {
+  display: none;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+
+  .navbar-links {
+    display: none;
+  }
+
+  .burger-button {
+    display: inline-flex;
+  }
+}
+
+/* SIDENAV */
+.mobile-sidenav {
+  width: 260px;
+  background: var(--mat-sys-surface);
+}
+
+.sidenav-header {
+  text-align: center;
+}
+

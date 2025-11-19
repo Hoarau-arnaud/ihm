@@ -1,0 +1,47 @@
+<footer class="footer">
+  <div class="footer-grid">
+
+    <!-- Bloc marque -->
+    <div class="footer-section">
+      <div class="footer-brand">
+        <img src="favicon.ico" alt="Logo" class="footer-logo" />
+        <h4>MyApp</h4>
+      </div>
+      <p class="footer-desc">Application moderne développée avec Angular 20.</p>
+
+      <div class="footer-socials">
+        <a href="#"><mat-icon>public</mat-icon></a>
+        <a href="#"><mat-icon>code</mat-icon></a>
+        <a href="#"><mat-icon>mail</mat-icon></a>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="footer-section">
+      <h5>Navigation</h5>
+      <a routerLink="/">Accueil</a>
+      <a routerLink="/about">À propos</a>
+      <a routerLink="/features">Fonctionnalités</a>
+      <a routerLink="/contact">Contact</a>
+    </div>
+
+    <!-- Compte -->
+    <div class="footer-section">
+      <h5>Compte</h5>
+      <a routerLink="/login">Connexion</a>
+      <a routerLink="/register">Créer un compte</a>
+    </div>
+
+    <!-- Informations -->
+    <div class="footer-section">
+      <h5>Informations</h5>
+      <p>Support : support@myapp.dev</p>
+      <p>Documentation disponible bientôt</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <small>© {{ currentYear }} MyApp — Tous droits réservés.</small>
+  </div>
+</footer>

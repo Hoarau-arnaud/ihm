@@ -1,0 +1,59 @@
+<mat-sidenav-container class="layout-container">
+
+  <!-- SIDENAV MOBILE -->
+  <mat-sidenav
+    class="mobile-sidenav"
+    [opened]="opened()"
+    (closedStart)="opened.set(false)"
+    mode="over"
+  >
+    <mat-toolbar color="primary" class="sidenav-header">
+      <span>Menu</span>
+    </mat-toolbar>
+
+    <mat-nav-list @slideIn>
+      <a mat-list-item routerLink="/" (click)="opened.set(false)">Accueil</a>
+      <a mat-list-item routerLink="/about" (click)="opened.set(false)">À propos</a>
+      <a mat-list-item routerLink="/services" (click)="opened.set(false)">Services</a>
+      <a mat-list-item routerLink="/contact" (click)="opened.set(false)">Contact</a>
+      <a mat-list-item routerLink="/login" (click)="opened.set(false)">Connexion</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- CONTENT -->
+  <mat-sidenav-content>
+
+    <!-- TOP NAVBAR -->
+    <mat-toolbar color="primary" class="navbar" @fadeIn>
+      
+      <!-- Mobile burger -->
+      <button
+        mat-icon-button
+        (click)="opened.set(true)"
+        class="burger-button"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <!-- Logo / Titre -->
+      <span class="navbar-title">MyApp</span>
+
+      <span class="spacer"></span>
+
+      <!-- Desktop menu -->
+      <nav class="navbar-links">
+        <a mat-button routerLink="/" routerLinkActive="active">Accueil</a>
+        <a mat-button routerLink="/about" routerLinkActive="active">À propos</a>
+        <a mat-button routerLink="/features" routerLinkActive="active">Fonctionnalités</a>
+        <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
+
+        <button mat-raised-button color="accent" routerLink="/login">
+          Connexion
+        </button>
+      </nav>
+
+    </mat-toolbar>
+
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
