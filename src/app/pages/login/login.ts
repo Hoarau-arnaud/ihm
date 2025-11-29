@@ -4,8 +4,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +16,11 @@ import { AuthService } from '../../services/auth';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
+    RouterModule
   ],
   templateUrl: './login.html',
-  styleUrls: ['./login.scss'],
+  styleUrl: './login.scss',
 })
 export class LoginComponent {
   email = signal('');
@@ -34,4 +37,11 @@ export class LoginComponent {
       this.error.set('Identifiants incorrects');
     }
   }
+
+  showPassword = false;
+
+togglePassword() {
+  this.showPassword = !this.showPassword;
+}
+
 }

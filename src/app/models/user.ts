@@ -3,5 +3,5 @@ export interface User {
   firstname: string;
   lastname: string;
   email: string;
-  password: string; // stocké en clair ici juste pour les tests
+  password: string;
 }

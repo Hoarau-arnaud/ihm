@@ -58,3 +58,68 @@
   font-size: 32px;
   color: var(--mat-sys-primary);
 }
+
+/* ----- RESPONSIVE < 900px (tablettes) ----- */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .hero-left,
+  .hero-right {
+    width: 100%;
+  }
+
+  .hero-subtitle {
+    margin: 0 auto 32px;
+  }
+}
+
+/* ----- RESPONSIVE < 450px (petits mobiles) ----- */
+@media (max-width: 450px) {
+
+  .hero {
+    padding: 40px 16px;
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hero-actions button {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .hero-right {
+    width: 100%;
+  }
+
+  .hero-card {
+    padding: 16px;
+  }
+}
+
+.hero-banner {
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-banner img {
+  width: 100%;
+  object-fit: cover; /* garde un beau cadrage */
+  display: block;
+}

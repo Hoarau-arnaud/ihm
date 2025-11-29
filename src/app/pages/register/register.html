@@ -1,0 +1,204 @@
+<div class="register-container">
+  <mat-card class="register-card">
+
+    <h2>Créer un compte</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <!-- PRENOM -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Prénom</mat-label>
+        <input matInput formControlName="firstname" />
+
+        @if (form.get('firstname')?.hasError('required')) {
+          <mat-error>Le prénom est obligatoire</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- NOM -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nom</mat-label>
+        <input matInput formControlName="lastname" />
+
+        @if (form.get('lastname')?.hasError('required')) {
+          <mat-error>Le nom est obligatoire</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- EMAIL -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+
+        @if (form.get('email')?.hasError('required')) {
+          <mat-error>L’email est obligatoire</mat-error>
+        }
+
+        @if (form.get('email')?.hasError('email')) {
+          <mat-error>Format d’email invalide</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- MOT DE PASSE -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Mot de passe</mat-label>
+
+        <input
+          matInput
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          (input)="checkStrength()"
+          (focus)="onPasswordFocus()"
+          (blur)="onPasswordBlur()"
+        />
+
+        <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="togglePassword()"
+        >
+        <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+
+        @if (form.get('password')?.hasError('required')) {
+          <mat-error>Le mot de passe est obligatoire</mat-error>
+        }
+
+      </mat-form-field>
+
+      <!-- BARRE DE FORCE -->
+@if (isPasswordFocused) {
+  <div class="strength-container">
+    <div 
+      class="strength-progress"
+      [style.width.%]="passwordPercent"
+      [class.faible]="passwordScore === 1"
+      [class.moyen]="passwordScore === 2"
+      [class.fort]="passwordScore === 3"
+      [class.excellent]="passwordScore === 4"
+    ></div>
+
+    <span class="strength-percent">
+      {{ passwordPercent }}%
+    </span>
+  </div>
+
+  <p class="strength-label">
+    Sécurité : <strong>{{ passwordStrength }}</strong>
+  </p>
+}
+
+@if (isPasswordFocused) {
+
+  <ul class="pwd-rules">
+    <li [class.ok]="passwordRules.length">
+      <mat-icon class="rule-icon">
+        {{ passwordRules.length ? 'check_circle' : 'cancel' }}
+      </mat-icon>
+      Au moins 6 caractères
+    </li>
+
+    <li [class.ok]="passwordRules.upper">
+      <mat-icon class="rule-icon">
+        {{ passwordRules.upper ? 'check_circle' : 'cancel' }}
+      </mat-icon>
+      Une majuscule (A-Z)
+    </li>
+
+    <li [class.ok]="passwordRules.number">
+      <mat-icon class="rule-icon">
+        {{ passwordRules.number ? 'check_circle' : 'cancel' }}
+      </mat-icon>
+      Un chiffre (0-9)
+    </li>
+
+    <li [class.ok]="passwordRules.special">
+      <mat-icon class="rule-icon">
+        {{ passwordRules.special ? 'check_circle' : 'cancel' }}
+      </mat-icon>
+      Un caractère spécial (!@#$%)
+    </li>
+  </ul>
+
+}
+
+      <!-- CONFIRMATION -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirmer le mot de passe</mat-label>
+
+<input
+  matInput
+  [type]="showConfirm ? 'text' : 'password'"
+  formControlName="confirmPassword"
+  (input)="checkConfirm()"
+  (focus)="onConfirmFocus()"
+  (blur)="confirmFocused = false"
+/>
+
+        <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="toggleConfirm()"
+            >
+            <mat-icon>{{ showConfirm ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+
+        @if (form.get('confirmPassword')?.hasError('required')) {
+          <mat-error>La confirmation est obligatoire</mat-error>
+        }
+
+      </mat-form-field>
+@if (confirmFocused) {
+
+  <div class="strength-container">
+    <div 
+      class="strength-progress"
+      [style.width.%]="confirmPercent"
+      [class.faible]="confirmScore === 0"
+      [class.fort]="confirmScore === 1"
+    ></div>
+
+    <span class="strength-percent">
+      {{ confirmPercent }}%
+    </span>
+  </div>
+
+<ul class="pwd-rules">
+
+  @if (confirmTouched) {
+
+    <li [class.ok]="passwordMatch">
+      <mat-icon class="rule-icon">
+        {{ passwordMatch ? 'check_circle' : 'cancel' }}
+      </mat-icon>
+
+      {{ passwordMatch 
+          ? 'Les mots de passe correspondent' 
+          : 'Les mots de passe ne correspondent pas' 
+      }}
+    </li>
+
+  }
+
+</ul>
+
+
+}
+
+      <!-- BOUTON -->
+<button 
+  mat-raised-button 
+  color="primary" 
+  class="full-width"
+  [disabled]="form.invalid"
+>
+  Créer mon compte
+</button>
+
+
+    </form>
+
+  </mat-card>
+</div>

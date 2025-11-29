@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth';
   selector: 'app-profile',
   imports: [MatCardModule, MatListModule],
   templateUrl: './profile.html',
-  styleUrls: ['./profile.scss'],
+  styleUrl: './profile.scss',
 })
 export class ProfileComponent {
   constructor(public auth: AuthService) {}

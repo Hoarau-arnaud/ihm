@@ -1,0 +1,124 @@
+<div class="table-container">
+
+  <!-- 🔍 Champ de recherche -->
+  <div class="search-bar">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Rechercher un utilisateur...</mat-label>
+
+      <input matInput [(ngModel)]="searchText" (input)="appliquerFiltre()">
+
+      @if (searchText) {
+        <button matSuffix mat-icon-button (click)="searchText=''; appliquerFiltre()">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z2">
+
+    <!-- Avatar -->
+    <ng-container matColumnDef="avatar">
+      <th mat-header-cell *matHeaderCellDef>Avatar</th>
+      <td mat-cell *matCellDef="let u">
+        <img [src]="u.avatar" class="avatar">
+      </td>
+    </ng-container>
+
+    <!-- Nom -->
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+      <td mat-cell *matCellDef="let u">{{ u.nom }}</td>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let u">{{ u.email }}</td>
+    </ng-container>
+
+    <!-- Rôle -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Rôle</th>
+      <td mat-cell *matCellDef="let u">
+        <span [class]="getBadgeClass(u.role)">
+          {{ u.role }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- État -->
+    <ng-container matColumnDef="etat">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+
+      <td mat-cell *matCellDef="let u">
+
+        <mat-select class="select-etat" [value]="u.actif" (selectionChange)="changerEtat(u, $event.value)">
+
+          <mat-select-trigger>
+            @if (u.actif) {
+              <mat-icon fontSet="material-symbols-rounded" class="icon-success">check_circle</mat-icon>
+            } @else {
+              <mat-icon fontSet="material-symbols-rounded" class="icon-danger">cancel</mat-icon>
+            }
+          </mat-select-trigger>
+
+          <mat-option [value]="true">
+            <mat-icon fontSet="material-symbols-rounded" class="icon-success">check_circle</mat-icon>
+            Activé
+          </mat-option>
+
+          <mat-option [value]="false">
+            <mat-icon fontSet="material-symbols-rounded" class="icon-danger">cancel</mat-icon>
+            Désactivé
+          </mat-option>
+
+        </mat-select>
+
+      </td>
+    </ng-container>
+
+    <!-- Actions -->
+<ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef>Action</th>
+
+  <td mat-cell *matCellDef="let u">
+
+    <mat-select class="select-actions" [value]="'default'">
+
+      <!-- Option masquée pour éviter select-empty -->
+      <mat-option value="default" style="display:none;"></mat-option>
+
+      <mat-select-trigger>
+        <mat-icon fontSet="material-symbols-rounded" class="icon-action">settings</mat-icon>
+      </mat-select-trigger>
+
+      <mat-option (click)="modifierUtilisateur(u)">
+        <mat-icon fontSet="material-symbols-rounded" class="icon-primary">edit</mat-icon>
+        Modifier
+      </mat-option>
+
+      <mat-option (click)="supprimerUtilisateur(u)">
+        <mat-icon fontSet="material-symbols-rounded" class="icon-danger">delete</mat-icon>
+        Supprimer
+      </mat-option>
+
+    </mat-select>
+
+  </td>
+</ng-container>
+
+
+
+
+    <!-- Rendering rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+
+</div>

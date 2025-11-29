@@ -8,6 +8,6 @@ import { RouterModule } from '@angular/router';
   selector: 'app-home',
   imports: [MatButtonModule, MatCardModule, RouterModule, MatIconModule],
   templateUrl: './home.html',
-  styleUrls: ['./home.scss'],
+  styleUrl: './home.scss',
 })
 export class HomeComponent {}

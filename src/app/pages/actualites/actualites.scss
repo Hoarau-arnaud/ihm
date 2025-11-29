@@ -1,0 +1,174 @@
+.actualites-container {
+  max-width: 650px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-card {
+  padding: 16px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.author {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.date {
+  font-size: 13px;
+  color: #777;
+}
+
+.content {
+  margin: 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 450px;
+  object-fit: cover;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.appear-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+/* Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Petit décalage entre chaque actu (effet cascade) */
+.post-card {
+  animation-delay: calc(var(--i, 0) * 0.05s);
+}
+
+.post-actions {
+  display: flex;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  margin-top: 12px;
+  gap: 8px;
+}
+
+.post-actions {
+  display: flex;
+  gap: 18px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  margin-top: 14px;
+}
+
+.post-actions .action {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: 0.2s ease;
+}
+
+.post-actions .action mat-icon {
+  font-size: 24px;
+  color: #555;
+  transition: 0.2s ease;
+}
+
+/* Like rouge animé */
+.post-actions .like.liked mat-icon {
+  color: #e53935;
+  transform: scale(1.15);
+}
+
+/* Hover moderne */
+.post-actions .action:hover mat-icon {
+  color: var(--mat-sys-primary);
+  transform: translateY(-2px);
+}
+
+/* Icônes spécifiques */
+.post-actions .comment mat-icon {
+  color: var(--mat-sys-secondary);
+}
+
+.post-actions .share mat-icon {
+  color: var(--mat-sys-tertiary);
+}
+
+
+
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  background: none;    /* IMPORTANT : pas d'image en fond global */
+}
+
+/* ⚠️ L'image prend toute la partie droite, sans décaler le contenu */
+.post-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  width: 70%; /* ← l’image prend plus de la moitié */
+  background-image: url('../../../../public/water.jpg');
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+
+  filter: brightness(0.75);
+
+  border-radius: 10px;
+  z-index: 1;
+}
+
+/* Contenu du header reste au-dessus → pas d'effet d'image */
+.post-header > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Empêche le texte d'empiéter sur l'image */
+.post-header {
+  padding-right: 60%; /* ← espace réservé à droite */
+}

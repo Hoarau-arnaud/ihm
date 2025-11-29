@@ -1,17 +1,25 @@
 /* GLOBAL LAYOUT */
 .layout-container {
-  height: 100vh;
+  height: auto;
 }
 
 /* NAVBAR */
 .navbar {
   backdrop-filter: blur(12px);
-  background: rgba(25, 118, 210, 0.85); /* couleur primary avec alpha */
+  background: #64b5f6; /* couleur primary avec alpha */
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
+
+.navbar-logo {
+  height: 32px;
+  width: 32px;
+  margin-right: 12px;
+  border-radius: 4px; /* optionnel */
+}
+
 
 .navbar-title {
   font-size: 1.4rem;
@@ -53,16 +61,59 @@
 }
 
 /* MOBILE */
+/* -------- MOBILE MENU -------- */
 @media (max-width: 900px) {
 
-  .navbar-links {
-    display: none;
+  .navbar-logo {
+    height: 28px;
+    width: 28px;
   }
 
+  /* On masque le menu desktop */
+  .navbar-links a {
+    display: none !important;
+  }
+
+  /* Le bouton connexion reste visible */
+  .navbar-links button {
+    display: inline-flex !important;
+  }
+
+  /* Enlever le burger */
   .burger-button {
-    display: inline-flex;
+    display: none !important;
+  }
+
+  /* Bouton + Menu */
+  .mobile-menu-toggle {
+    width: 100%;
+    padding: 10px 12px;
+    background: rgba(25, 118, 210, 0.1);
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  /* Conteneur des liens déroulants */
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    background: var(--mat-sys-surface);
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .mobile-menu a {
+    padding: 12px 0;
+    font-size: 1.05rem;
+    text-align: left;
+    width: 100%;
   }
 }
+
+
 
 /* SIDENAV */
 .mobile-sidenav {
@@ -74,3 +125,15 @@
   text-align: center;
 }
 
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-sidenav-content {
+  padding-top: 0 !important;
+}
+
+
+.navbar-links button.active {
+  box-shadow: inset 0 -2px 0 white;
+}

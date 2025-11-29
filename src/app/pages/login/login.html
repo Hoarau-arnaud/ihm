@@ -1,6 +1,24 @@
 <div class="login-container">
   <mat-card class="login-card">
     <h2>Connexion</h2>
+<!-- BOUTONS GOOGLE / FACEBOOK -->
+<div class="social-row">
+  <button class="social-btn outlined-btn" type="button">
+    <img src="google.png" class="social-icon" />
+    Continuer avec Google
+  </button>
+
+  <button class="social-btn outlined-btn" type="button">
+    <img src="facebook.png" class="social-icon" />
+    Continuer avec Facebook
+  </button>
+</div>
+
+<!-- SEPARATEUR -->
+<div class="separator">
+  <span>ou continuez avec</span>
+</div>
+
 
     @if (error()) {
       <mat-card class="error-card">
@@ -8,34 +26,70 @@
       </mat-card>
     }
 
-    <form (ngSubmit)="login()">
+    <form (ngSubmit)="login()" #f="ngForm">
 
+      <!-- EMAIL -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
         <input
           matInput
+          name="email"
           [ngModel]="email()"
           (ngModelChange)="email.set($event)"
-          name="email"
           required
+          #emailCtrl="ngModel"
         />
+
+
+        @if (emailCtrl.invalid && emailCtrl.touched) {
+          <mat-error>Email obligatoire</mat-error>
+        }
       </mat-form-field>
 
+      <!-- MOT DE PASSE -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Mot de passe</mat-label>
-        <input
-          matInput
-          type="password"
-          [ngModel]="password()"
-          (ngModelChange)="password.set($event)"
-          name="password"
-          required
-        />
-      </mat-form-field>
 
-      <button mat-raised-button color="primary" class="full-width">
+<input
+  matInput
+  [type]="showPassword ? 'text' : 'password'"
+  name="password"
+  [ngModel]="password()"
+  (ngModelChange)="password.set($event)"
+  required
+  #passCtrl="ngModel"
+/>
+
+<button mat-icon-button matSuffix type="button" (click)="togglePassword()">
+  <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+</button>
+
+
+
+        @if (passCtrl.invalid && passCtrl.touched) {
+          <mat-error>Mot de passe obligatoire</mat-error>
+        }
+      </mat-form-field>
+<p class="forgot-text" >Mot de passe oublié ?</p>
+
+      <button 
+        mat-raised-button 
+        color="primary"
+        class="full-width"
+        [disabled]="f.invalid"
+      >
         Se connecter
       </button>
+
     </form>
+
+    <p class="register-text">
+      Pas encore de compte ?
+      <a routerLink="/register" class="register-link">
+        Créez-en un
+        <mat-icon class="register-icon">account_circle</mat-icon>
+      </a>
+    </p>
+
   </mat-card>
 </div>

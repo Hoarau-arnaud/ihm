@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { User } from '../models/user/user';
+import { User } from '../models/user';
 import { USERS } from '../data/user';
 
 @Injectable({

@@ -1,0 +1,55 @@
+<div class="actualites-container">
+
+@for (actu of displayed; let i = $index; track actu.id) {
+
+  <mat-card 
+    class="post-card appear-up"
+    [style.--i]="i"
+  >
+
+      <div class="post-header">
+        <img [src]="actu.avatar" class="avatar" alt="avatar" />
+        <div>
+          <h3 class="author">{{ actu.auteur }}</h3>
+          <span class="date">{{ actu.date | date:'longDate' }}</span>
+        </div>
+      </div>
+
+      <p class="content">{{ actu.contenu }}</p>
+
+      @if (actu.image) {
+        <img [src]="actu.image" class="post-image" />
+      }
+
+        <!-- 👍💬🔁 Actions -->
+<div class="post-actions">
+
+<button class="action like" 
+        [class.liked]="actu.liked" 
+        (click)="toggleLike(actu)">
+  <mat-icon>{{ actu.liked ? 'favorite' : 'favorite_border' }}</mat-icon>
+</button>
+
+
+  <button class="action comment" (click)="openComments(actu)">
+    <mat-icon>chat_bubble_outline</mat-icon>
+  </button>
+
+  <button class="action share">
+    <mat-icon>share</mat-icon>
+  </button>
+
+</div>
+
+
+    </mat-card>
+  }
+
+  @empty {
+    <p style="text-align:center; color:#777;">
+      Aucune actualité pour le moment.
+    </p>
+  }
+
+</div>
+
