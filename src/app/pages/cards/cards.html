@@ -1,0 +1,152 @@
+<div class="tabs">
+
+  <button 
+    class="tab" 
+    [class.active]="activeTab === 'cards'"
+    (click)="activeTab = 'cards'">
+    Toutes mes cartes
+  </button>
+
+  <button 
+    class="tab" 
+    [class.active]="activeTab === 'decks'"
+    (click)="activeTab = 'decks'">
+    Mes decks
+  </button>
+
+</div>
+
+
+<!-- 🔵 ONGLET 1 : TOUTES LES CARTES -->
+@if (activeTab === 'cards') {
+
+  <div class="cards-container">
+
+    @for (p of pokemons; let i = $index; track p.id) {
+      <app-card class="appear-up"
+        [style.--i]="i"
+        [name]="p.name"
+        [hp]="p.hp"
+        [figure]="p.figure"
+        [figureCaption]="p.figureCaption"
+        [attacks]="p.attacks"
+        [energyImage]="p.energyImage"
+        [description]="p.description"
+      ></app-card>
+    }
+
+    @empty {
+      <p style="text-align:center;color:#777;">Aucune carte Pokémon trouvée.</p>
+    }
+  </div>
+
+}
+
+
+
+<!-- 🔴 ONGLET 2 : GESTION DES DECKS -->
+@if (activeTab === 'decks') {
+
+  <!-- ACTIONS SUR LES DECKS -->
+  <div class="deck-actions">
+    <button (click)="openCreateModal()">Créer un deck</button>
+
+    @if (selectedDeck) {
+      <button (click)="openRenameModal(selectedDeck)">Renommer</button>
+      <button (click)="deleteDeck(selectedDeck.id)">Supprimer</button>
+    }
+  </div>
+
+  <!-- SELECTEUR DE DECK -->
+  <div class="deck-select">
+    <label>Sélectionner un deck :</label>
+
+    <select [(ngModel)]="selectedDeckId">
+
+      @for (d of decks; track d.id) {
+        <option [ngValue]="d.id">{{ d.name }}</option>
+      }
+
+      @empty {
+        <option disabled>Aucun deck disponible</option>
+      }
+      
+    </select>
+  </div>
+
+
+  <!-- AJOUT DE POKEMON -->
+  <h3>Ajouter des Pokémon au deck</h3>
+
+  <div class="add-list">
+    @for (p of pokemons; track p.id) {
+      <button (click)="addPokemonToDeck(p)">
+        Ajouter {{ p.name }}
+      </button>
+    }
+  </div>
+
+
+  <!-- AFFICHAGE DU DECK -->
+  @if (selectedDeck) {
+
+    <h3 class="deck-title">{{ selectedDeck.name }}</h3>
+
+    <div class="cards-container">
+      @for (p of selectedDeck.pokemons; let i = $index; track i) {
+        
+        <div class="deck-card-wrapper">
+          <app-card class="appear-up"
+            [style.--i]="i"
+            [name]="p.name"
+            [hp]="p.hp"
+            [figure]="p.figure"
+            [figureCaption]="p.figureCaption"
+            [attacks]="p.attacks"
+            [energyImage]="p.energyImage"
+            [description]="p.description"
+          ></app-card>
+
+          <button class="remove-btn" (click)="removePokemonFromDeck(p.id)">
+            ❌ Retirer
+          </button>
+        </div>
+
+      }
+    </div>
+
+  }
+
+}
+
+
+
+<!-- 🟣 MODALE : CREATION DE DECK -->
+@if (showCreateModal) {
+  <div class="modal-backdrop">
+    <div class="modal">
+      <h3>Nouveau deck</h3>
+
+      <input [(ngModel)]="newDeckName" placeholder="Nom du deck" />
+
+      <button (click)="createDeck()">Créer</button>
+      <button (click)="showCreateModal=false">Annuler</button>
+    </div>
+  </div>
+}
+
+
+
+<!-- 🟠 MODALE : RENOMMER UN DECK -->
+@if (showRenameModal) {
+  <div class="modal-backdrop">
+    <div class="modal">
+      <h3>Renommer le deck</h3>
+
+      <input [(ngModel)]="renameDeckName" placeholder="Nouveau nom" />
+
+      <button (click)="renameDeck()">Valider</button>
+      <button (click)="showRenameModal=false">Annuler</button>
+    </div>
+  </div>
+}

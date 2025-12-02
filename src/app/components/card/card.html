@@ -1,0 +1,50 @@
+<div id="card">
+  <div id="inside">
+
+    <header>
+      <div class="left">
+        <div id="name">{{ name }}</div>
+      </div>
+      <div class="right"> 
+        <div id="hp">{{ hp }}</div>
+
+        <!-- ⚡ IMAGE ÉNERGIE DYNAMIQUE -->
+        <img class="energy icon" [src]="energyImage">
+      </div>                
+    </header>
+
+    <figure id="art">
+      <!-- ⚡ IMAGE PRINCIPALE : ok -->
+      <img class="energy icon" [src]="figure">
+      <figcaption>{{ figureCaption }}</figcaption>
+    </figure>
+
+    <div id="capacities">
+
+    @for (atk of attacks; track $index) {
+
+        <div class="capacity">
+        <div class="main">
+
+            <!-- coût énergie -->
+            <div class="cost">
+@for (x of getEnergyArray(atk.energyCount); track $index) {
+  <img class="icon energy" [src]="energyImage">
+}
+
+            </div>
+
+            <div class="name">{{ atk.name }}</div>
+        </div>
+        </div>
+
+    }
+
+    <!-- description du pokémon, unique -->
+    <div class="description">{{ description }}</div>
+
+    </div>
+
+
+  </div>
+</div>

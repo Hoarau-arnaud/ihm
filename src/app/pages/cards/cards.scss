@@ -1,0 +1,127 @@
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 15px;
+  justify-content: center;
+
+}
+
+.appear-up {
+  animation: appear 0.5s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  animation-delay: calc(var(--i) * 80ms);
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.tab {
+  padding: 10px 15px;
+  border: none;
+  background: #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.tab:hover {
+  background: #ccc;
+}
+
+.tab.active {
+  background: #4d90fe;
+  color: white;
+}
+
+/* Select deck */
+.deck-select {
+  margin: 20px 0;
+  padding: 0 20px;
+  font-size: 16px;
+}
+
+.deck-title {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Tes styles existants */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 15px;
+  justify-content: center;
+}
+
+.appear-up {
+  animation: appear 0.5s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  animation-delay: calc(var(--i) * 80ms);
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.deck-actions {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 20px;
+}
+
+.add-list button {
+  margin: 5px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.remove-btn {
+  background: #f55;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 300px;
+  animation: pop 0.25s ease-out;
+}
+
+@keyframes pop {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}

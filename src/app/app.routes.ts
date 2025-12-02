@@ -9,4 +9,6 @@ export const routes: Routes = [
   { path: 'register', loadComponent: () => import('./pages/register/register').then(m => m.RegisterComponent) },
   { path: 'actualites', loadComponent: () => import('./pages/actualites/actualites').then(m => m.Actualites) },
   { path: 'utilisateurs', loadComponent: () => import('./pages/utilisateurs/utilisateurs').then(m => m.Utilisateurs) },
+  { path: 'card', loadComponent: () => import('./pages/cards/cards').then(m => m.Cards) },
+
 ];
