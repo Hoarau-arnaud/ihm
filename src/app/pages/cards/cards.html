@@ -1,152 +1,335 @@
 <div class="tabs">
 
-  <button 
-    class="tab" 
-    [class.active]="activeTab === 'cards'"
-    (click)="activeTab = 'cards'">
+  <button class="tab" [class.active]="activeTab === 'cards'" (click)="activeTab = 'cards'">
     Toutes mes cartes
   </button>
 
-  <button 
-    class="tab" 
-    [class.active]="activeTab === 'decks'"
-    (click)="activeTab = 'decks'">
+  <button class="tab" [class.active]="activeTab === 'decks'" (click)="activeTab = 'decks'">
     Mes decks
+  </button>
+
+  <button class="tab" [class.active]="activeTab === 'create'" (click)="activeTab = 'create'">
+    Créer une carte
   </button>
 
 </div>
 
-
 <!-- 🔵 ONGLET 1 : TOUTES LES CARTES -->
 @if (activeTab === 'cards') {
 
-  <div class="cards-container">
+<div class="flex flex-wrap items-center gap-4 p-4 bg-gray-100 rounded-lg shadow-sm">
 
-    @for (p of pokemons; let i = $index; track p.id) {
-      <app-card class="appear-up"
-        [style.--i]="i"
-        [name]="p.name"
-        [hp]="p.hp"
-        [figure]="p.figure"
-        [figureCaption]="p.figureCaption"
-        [attacks]="p.attacks"
-        [energyImage]="p.energyImage"
-        [description]="p.description"
-      ></app-card>
-    }
+  <!-- TRI -->
+  <div class="flex items-center gap-2">
+    <label class="font-medium text-gray-700">Trier par :</label>
 
-    @empty {
-      <p style="text-align:center;color:#777;">Aucune carte Pokémon trouvée.</p>
-    }
+    <select [(ngModel)]="sortBy" class="px-3 py-2 border rounded-lg bg-white shadow-sm">
+      <option value="none">Aucun</option>
+      <option value="hp">HP</option>
+      <option value="name">Nom</option>
+    </select>
+
+    <select [(ngModel)]="sortOrder" class="px-3 py-2 border rounded-lg bg-white shadow-sm">
+      <option value="asc">Ascendant</option>
+      <option value="desc">Descendant</option>
+    </select>
   </div>
 
+  <!-- RECHERCHE -->
+  <div class="flex-1 min-w-[180px]">
+    <input type="text" placeholder="🔍 Rechercher un Pokémon..." class="w-full px-3 py-2 border rounded-lg shadow-sm"
+      [(ngModel)]="searchQuery">
+  </div>
+
+  <!-- FILTRE TYPE -->
+  <div class="flex items-center gap-2">
+    <label class="font-medium text-gray-700">Type :</label>
+
+    <select [(ngModel)]="filterType" class="px-3 py-2 border rounded-lg bg-white shadow-sm">
+      <option value="all">Tous</option>
+
+      @for (type of energyTypes; track type.value) {
+      <option [ngValue]="type.value">{{ type.label }}</option>
+      }
+    </select>
+  </div>
+
+</div>
+
+
+<div class="cards-container">
+
+  @for (p of sortedPokemons; let i = $index; track p.id) {
+  <app-card class="appear-up" [style.--i]="i" [name]="p.name" [hp]="p.hp" [figure]="p.figure"
+    [figureCaption]="p.figureCaption" [attacks]="p.attacks" [energyImage]="p.energyImage" [description]="p.description"
+    [insideColor]="energyColorMap[p.energyImage]"></app-card>
+  }
+
+  @empty {
+  <p style="text-align:center;color:#777;">Aucune carte Pokémon trouvée.</p>
+  }
+</div>
+
 }
-
-
 
 <!-- 🔴 ONGLET 2 : GESTION DES DECKS -->
 @if (activeTab === 'decks') {
 
-  <!-- ACTIONS SUR LES DECKS -->
-  <div class="deck-actions">
-    <button (click)="openCreateModal()">Créer un deck</button>
+<!-- 🟦 BARRE D’ACTIONS DE DECK -->
+<div class="flex flex-wrap items-center gap-4 p-4 bg-gray-100 rounded-lg shadow-sm">
 
-    @if (selectedDeck) {
-      <button (click)="openRenameModal(selectedDeck)">Renommer</button>
-      <button (click)="deleteDeck(selectedDeck.id)">Supprimer</button>
-    }
-  </div>
+  <button (click)="openCreateModal()"
+    class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+    ➕ Créer un deck
+  </button>
 
-  <!-- SELECTEUR DE DECK -->
-  <div class="deck-select">
-    <label>Sélectionner un deck :</label>
-
-    <select [(ngModel)]="selectedDeckId">
-
-      @for (d of decks; track d.id) {
-        <option [ngValue]="d.id">{{ d.name }}</option>
-      }
-
-      @empty {
-        <option disabled>Aucun deck disponible</option>
-      }
-      
-    </select>
-  </div>
-
-
-  <!-- AJOUT DE POKEMON -->
-  <h3>Ajouter des Pokémon au deck</h3>
-
-  <div class="add-list">
-    @for (p of pokemons; track p.id) {
-      <button (click)="addPokemonToDeck(p)">
-        Ajouter {{ p.name }}
-      </button>
-    }
-  </div>
-
-
-  <!-- AFFICHAGE DU DECK -->
   @if (selectedDeck) {
+  <button (click)="openRenameModal(selectedDeck)"
+    class="px-4 py-2 bg-yellow-400 text-gray-900 rounded-lg shadow hover:bg-yellow-300 transition">
+    ✏️ Renommer
+  </button>
 
-    <h3 class="deck-title">{{ selectedDeck.name }}</h3>
+  <button (click)="deleteDeck(selectedDeck.id)"
+    class="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition">
+    🗑️ Supprimer
+  </button>
+  }
+</div>
 
-    <div class="cards-container">
-      @for (p of selectedDeck.pokemons; let i = $index; track i) {
-        
-        <div class="deck-card-wrapper">
-          <app-card class="appear-up"
-            [style.--i]="i"
-            [name]="p.name"
-            [hp]="p.hp"
-            [figure]="p.figure"
-            [figureCaption]="p.figureCaption"
-            [attacks]="p.attacks"
-            [energyImage]="p.energyImage"
-            [description]="p.description"
-          ></app-card>
 
-          <button class="remove-btn" (click)="removePokemonFromDeck(p.id)">
-            ❌ Retirer
-          </button>
-        </div>
+<!-- 🟨 SÉLECTEUR DE DECK -->
+<div class="p-4 bg-white rounded-lg shadow-sm mt-4 flex items-center gap-3">
+  <label class="font-medium text-gray-700">Sélectionner un deck :</label>
 
-      }
-    </div>
+  <select [(ngModel)]="selectedDeckId" class="px-3 py-2 border rounded-lg bg-gray-50 shadow-sm">
+
+    @for (d of decks; track d.id) {
+    <option [ngValue]="d.id">{{ d.name }}</option>
+    }
+
+    @empty {
+    <option disabled>Aucun deck disponible</option>
+    }
+  </select>
+</div>
+
+<!-- 🟩 AJOUTER POKÉMON -->
+<h3 class="text-2xl font-bold mt-8 mb-5 text-center">Ajouter des Pokémon au deck</h3>
+
+<div class="flex flex-wrap justify-center gap-3">
+  @for (p of pokemons; track p.id) {
+    <button
+      (click)="addPokemonToDeck(p)"
+      class="px-3 py-2 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition"
+    >
+      Ajouter {{ p.name }}
+    </button>
+  }
+</div>
+
+<!-- 🟥 OUTILS DU DECK (RECHERCHE / TRI / TYPE) -->
+@if (selectedDeck) {
+
+<h3 class="text-2xl font-bold mt-8 mb-4 text-center">{{ selectedDeck.name }}</h3>
+
+<div class="flex flex-wrap items-center gap-4 p-4 bg-gray-100 rounded-lg shadow-sm">
+
+  <!-- Recherche -->
+  <input type="text" placeholder="🔍 Rechercher dans le deck..."
+    class="px-3 py-2 border rounded-lg shadow-sm flex-1 min-w-[180px]" [(ngModel)]="searchQueryDeck">
+
+  <!-- Filtre type -->
+  <select [(ngModel)]="filterTypeDeck" class="px-3 py-2 border rounded-lg bg-white shadow-sm">
+    <option value="all">Tous</option>
+
+    @for (type of energyTypes; track type.value) {
+    <option [ngValue]="type.value">{{ type.label }}</option>
+    }
+  </select>
+
+  <!-- Tri -->
+  <select [(ngModel)]="sortByDeck" class="px-3 py-2 border rounded-lg bg-white shadow-sm">
+    <option value="none">Aucun tri</option>
+    <option value="hp">HP</option>
+    <option value="name">Nom</option>
+  </select>
+
+  <!-- Ordre -->
+  <select [(ngModel)]="sortOrderDeck" class="px-3 py-2 border rounded-lg bg-white shadow-sm">
+    <option value="asc">Ascendant</option>
+    <option value="desc">Descendant</option>
+  </select>
+</div>
+
+
+
+
+<div class="cards-container">
+  @for (p of filteredDeckPokemons; let i = $index; track i) {
+
+  <div class="deck-card-wrapper">
+    <app-card class="appear-up" [style.--i]="i" [name]="p.name" [hp]="p.hp" [figure]="p.figure"
+      [figureCaption]="p.figureCaption" [attacks]="p.attacks" [energyImage]="p.energyImage"
+      [description]="p.description" [insideColor]="energyColorMap[p.energyImage]"></app-card>
+
+    <button class="remove-btn" (click)="removePokemonFromDeck(p.id)">
+      ❌ Retirer
+    </button>
+  </div>
 
   }
+</div>
+
+}
 
 }
 
 
+@if (activeTab === 'create') {
+
+<div class="create-container">
+
+  <!-- PREVIEW A GAUCHE -->
+  <div class="preview">
+    <app-card [name]="newCard.name" [hp]="newCard.hp" [figure]="newCard.figure" [figureCaption]="newCard.figureCaption"
+      [attacks]="newCard.attacks" [energyImage]="newCard.energyImage" [description]="newCard.description"
+      [insideColor]="energyColorMap[newCard.energyImage]"></app-card>
+  </div>
+
+  <!-- FORMULAIRE A DROITE -->
+  <div class="creator-form">
+
+    <h3>Créer une carte Pokémon</h3>
+
+    <div class="form-row">
+      <label>Nom :</label>
+      <input [(ngModel)]="newCard.name" type="text">
+    </div>
+
+    <div class="form-row">
+      <label>HP :</label>
+      <input [(ngModel)]="newCard.hp" type="number">
+    </div>
+
+    <div class="form-row">
+      <label>Image :</label>
+      <input type="file" accept="image/*" (change)="onImageSelected($event)">
+    </div>
+
+    <div class="form-row">
+      <label>Légende :</label>
+      <input [(ngModel)]="newCard.figureCaption" type="text">
+    </div>
+
+    <div class="form-row">
+      <label>Énergie :</label>
+      <select [(ngModel)]="newCard.energyImage">
+        @for (type of energyTypes; track type.value) {
+        <option [ngValue]="type.value">{{ type.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Description :</label>
+      <textarea [(ngModel)]="newCard.description"></textarea>
+    </div>
+    <h4>Attaques :</h4>
+
+    @for (a of newCard.attacks; let i = $index; track i) {
+    <div class="attack-editor">
+      <input [(ngModel)]="a.name" placeholder="Nom de l'attaque">
+      <input [(ngModel)]="a.energyCount" type="number" placeholder="Énergie">
+    </div>
+    }
+
+    <button (click)="addAttack()">Ajouter une attaque</button>
+
+    <hr>
+
+    <button class="save-btn" (click)="saveNewCard()">Enregistrer cette carte</button>
+
+  </div>
+
+</div>
+
+}
+
 
 <!-- 🟣 MODALE : CREATION DE DECK -->
 @if (showCreateModal) {
-  <div class="modal-backdrop">
-    <div class="modal">
-      <h3>Nouveau deck</h3>
 
-      <input [(ngModel)]="newDeckName" placeholder="Nom du deck" />
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fadeIn">
 
-      <button (click)="createDeck()">Créer</button>
-      <button (click)="showCreateModal=false">Annuler</button>
+  <div class="bg-white rounded-xl p-6 w-80 shadow-xl animate-scaleIn">
+
+    <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">
+      ➕ Nouveau deck
+    </h2>
+
+    <input 
+      [(ngModel)]="newDeckName"
+      class="w-full px-3 py-2 border rounded-lg shadow-sm
+             focus:ring-2 focus:ring-green-500 outline-none"
+      placeholder="Nom du deck..."
+    />
+
+    <div class="flex justify-between mt-5">
+      <button 
+        (click)="showCreateModal = false"
+        class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition">
+        Annuler
+      </button>
+
+      <button 
+        (click)="createDeck()"
+        class="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition">
+        Créer
+      </button>
     </div>
+
   </div>
+
+</div>
+
 }
 
 
 
 <!-- 🟠 MODALE : RENOMMER UN DECK -->
 @if (showRenameModal) {
-  <div class="modal-backdrop">
-    <div class="modal">
-      <h3>Renommer le deck</h3>
 
-      <input [(ngModel)]="renameDeckName" placeholder="Nouveau nom" />
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fadeIn">
 
-      <button (click)="renameDeck()">Valider</button>
-      <button (click)="showRenameModal=false">Annuler</button>
+  <div class="bg-white rounded-xl p-6 w-80 shadow-xl animate-scaleIn">
+
+    <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">
+      ✏️ Renommer le deck
+    </h2>
+
+    <input 
+      [(ngModel)]="renameDeckName"
+      class="w-full px-3 py-2 border rounded-lg shadow-sm
+             focus:ring-2 focus:ring-blue-500 outline-none"
+      placeholder="Nouveau nom..."
+    />
+
+    <div class="flex justify-between mt-5">
+      <button 
+        (click)="showRenameModal = false"
+        class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition">
+        Annuler
+      </button>
+
+      <button 
+        (click)="renameDeck()"
+        class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
+        Valider
+      </button>
     </div>
+
   </div>
+
+</div>
+
 }

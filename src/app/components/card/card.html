@@ -1,5 +1,5 @@
 <div id="card">
-  <div id="inside">
+  <div id="inside" [ngStyle]="{ 'background-color': insideColor }">
 
     <header>
       <div class="left">
@@ -28,9 +28,9 @@
 
             <!-- coût énergie -->
             <div class="cost">
-@for (x of getEnergyArray(atk.energyCount); track $index) {
-  <img class="icon energy" [src]="energyImage">
-}
+              @for (x of getEnergyArray(atk.energyCount); track $index) {
+                <img class="icon energy" [src]="energyImage">
+              }
 
             </div>
 

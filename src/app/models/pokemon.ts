@@ -9,21 +9,12 @@ export interface Pokemon {
   hp: number;
   figure: string;
   figureCaption: string;
-
-  // liste des attaques
   attacks: AttackLine[];
-
-  // image énergie commune pour TOUTES les attaques
   energyImage: string;
-
-  // description du pokémon (unique)
   description: string;
 }
 
 export const POKEMONS: Pokemon[] = [
-
-
-
   {
     id: 1,
     name: 'Kyogre',
@@ -50,7 +41,7 @@ export const POKEMONS: Pokemon[] = [
       { name: 'Trempette', energyCount: 1 },
     ],
 
-    energyImage: 'w.png',
+    energyImage: 'water.png',
     description: 'Un Pokémon faible qui bondit désespérément pour se défendre. Devient très menaçant une fois sa forme évolué atteinte.'
   },
     {
@@ -81,7 +72,7 @@ export const POKEMONS: Pokemon[] = [
       { name: 'Piqué Glacé', energyCount: 3 }
     ],
 
-    energyImage: 'w.png',
+    energyImage: 'water.png',
     description: 'Un oiseau légendaire capable de geler l’air en battant des ailes. '
   },
     {
@@ -96,7 +87,7 @@ export const POKEMONS: Pokemon[] = [
       { name: 'Laser Glace', energyCount: 2 },
     ],
 
-    energyImage: 'w.png',
+    energyImage: 'water.png',
     description: 'Un Pokémon féroce au tempérament violent.'
   },
   {
@@ -128,7 +119,7 @@ export const POKEMONS: Pokemon[] = [
       { name: 'Trempette', energyCount: 1 },
     ],
 
-    energyImage: 'w.png',
+    energyImage: 'water.png',
     description: 'Un Pokémon faible qui bondit désespérément pour se défendre. Devient très menaçant une fois sa forme évolué atteinte.'
   },
 
@@ -144,7 +135,7 @@ export const POKEMONS: Pokemon[] = [
       { name: 'Laser Glace', energyCount: 2 },
     ],
 
-    energyImage: 'w.png',
+    energyImage: 'water.png',
     description: 'Un Pokémon féroce au tempérament violent.'
   },
 
@@ -160,7 +151,7 @@ export const POKEMONS: Pokemon[] = [
       { name: 'Piqué Glacé', energyCount: 3 }
     ],
 
-    energyImage: 'w.png',
+    energyImage: 'water.png',
     description: 'Un oiseau légendaire capable de geler l’air en battant des ailes. '
   },
 
@@ -222,7 +213,7 @@ export const POKEMONS: Pokemon[] = [
       { name: 'Trempette', energyCount: 1 },
     ],
 
-    energyImage: 'w.png',
+    energyImage: 'water.png',
     description: 'Un Pokémon faible qui bondit désespérément pour se défendre. Devient très menaçant une fois sa forme évolué atteinte.'
   },
 
@@ -238,7 +229,7 @@ export const POKEMONS: Pokemon[] = [
       { name: 'Laser Glace', energyCount: 2 },
     ],
 
-    energyImage: 'w.png',
+    energyImage: 'water.png',
     description: 'Un Pokémon féroce au tempérament violent.'
   },
 
@@ -254,7 +245,7 @@ export const POKEMONS: Pokemon[] = [
       { name: 'Piqué Glacé', energyCount: 3 }
     ],
 
-    energyImage: 'w.png',
+    energyImage: 'water.png',
     description: 'Un oiseau légendaire capable de geler l’air en battant des ailes. '
   },
 

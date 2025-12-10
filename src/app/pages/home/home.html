@@ -1,56 +1,100 @@
-<div class="hero-banner">
-  <img src="ocean.jpg" alt="Banner Angular" />
+<!-- BANNIÈRE HERO -->
+<div class="w-full h-96 overflow-hidden border-b-4 border-red-600 bg-black">
+  <img
+    src="ocean.jpg"
+    class="w-full h-full object-contain object-top brightness-110"
+  />
 </div>
 
-<section class="hero">
-  <div class="hero-left">
-    <h1 class="hero-title">
-      Développez avec <span>Angular&nbsp;20</span> dans un environnement moderne.
-    </h1>
 
-    <p class="hero-subtitle">
-      Une base robuste, performante et optimisée pour créer des applications rapides,
-      évolutives et élégantes.
+
+
+<!-- SECTION PRINCIPALE -->
+<section class="max-w-6xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-14">
+
+  <!-- GAUCHE -->
+  <div class="flex-1">
+
+<h1 class="text-4xl md:text-5xl font-bold text-red-500 leading-tight">
+  Bienvenue dans ton
+  <span class="text-yellow-500 font-extrabold">
+    Pokédex de cartes
+  </span>
+  !
+</h1>
+
+
+
+
+    <p class="mt-4 text-lg text-gray-700 max-w-md">
+      Découvre, crée et organise tes propres cartes Pokémon dans un style inspiré
+      des jeux mythiques <strong>Pokémon Rouge · Bleu · Jaune</strong>.
     </p>
 
-    <div class="hero-actions">
-      <button mat-raised-button color="primary" routerLink="/login">
-        Se connecter
+    <div class="mt-6 flex gap-4">
+      <button
+        mat-raised-button
+        color="primary"
+        routerLink="/cards"
+        class="!px-6 !py-3 !rounded-lg !shadow hover:brightness-110 transition"
+      >
+        Voir toutes les cartes
       </button>
 
-      <button mat-flat-button color="accent" routerLink="/about">
-        En savoir plus
+      <button
+        mat-flat-button
+        color="accent"
+        routerLink="/decks"
+        class="!px-6 !py-3 !rounded-lg !shadow hover:brightness-110 transition"
+      >
+        Mes decks
       </button>
     </div>
 
-    <p class="hero-tech">
-      🔧 Technologies utilisées : Angular 20 · Standalone Components · Routing Moderne
+    <p class="mt-4 text-sm opacity-70">
+      ⚡ Construit avec Angular 20
     </p>
   </div>
 
-  <div class="hero-right">
-    <mat-card class="hero-card">
-      <mat-icon>architecture</mat-icon>
-      <div>
-        <h3>Structure claire</h3>
-        <p>Organisation modulaire, composants standalone et code propre.</p>
-      </div>
-    </mat-card>
+  <!-- DROITE (cartes info) -->
+  <div class="flex-1 flex flex-col gap-6">
 
-    <mat-card class="hero-card">
-      <mat-icon>bolt</mat-icon>
-      <div>
-        <h3>Performance</h3>
-        <p>Optimisations natives d'Angular et chargement intelligent.</p>
-      </div>
-    </mat-card>
+    <!-- CARD 1 -->
+    <div class="relative w-full h-44 rounded-xl overflow-hidden shadow-md group">
+      <img src="ball.png"
+           class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+      <div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition"></div>
 
-    <mat-card class="hero-card">
-      <mat-icon>devices</mat-icon>
-      <div>
-        <h3>Responsive</h3>
-        <p>Mise en page moderne et adaptée à tous les écrans.</p>
+      <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+        <h3 class="text-xl font-bold">Collectionne</h3>
+        <p class="text-sm">Retrouve toutes tes cartes Pokémon facilement.</p>
       </div>
-    </mat-card>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="relative w-full h-44 rounded-xl overflow-hidden shadow-md group">
+      <img src="forest.jpg"
+           class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+      <div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition"></div>
+
+      <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+        <h3 class="text-xl font-bold">Crée tes cartes</h3>
+        <p class="text-sm">Construis tes propres cartes comme au TCG original !</p>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="relative w-full h-44 rounded-xl overflow-hidden shadow-md group">
+      <img src="de.jpg"
+           class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+      <div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition"></div>
+
+      <div class="relative z-10 flex flex-col justify-end h-full p-4 text-white">
+        <h3 class="text-xl font-bold">Organise tes decks</h3>
+        <p class="text-sm">Crée, trie et optimise tes decks Pokémon.</p>
+      </div>
+    </div>
+
   </div>
+
 </section>

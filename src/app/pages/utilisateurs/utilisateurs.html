@@ -2,19 +2,28 @@
 
   <!-- 🔍 Champ de recherche -->
   <div class="search-bar">
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Rechercher un utilisateur...</mat-label>
+    <div class="relative w-full max-w-md">
 
-      <input matInput [(ngModel)]="searchText" (input)="appliquerFiltre()">
+      <input type="text" placeholder="Rechercher un utilisateur..." [(ngModel)]="searchText" (input)="appliquerFiltre()"
+        class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md 
+           shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500
+           focus:border-blue-500" />
 
+      <!-- Bouton pour effacer -->
       @if (searchText) {
-        <button matSuffix mat-icon-button (click)="searchText=''; appliquerFiltre()">
-          <mat-icon>close</mat-icon>
-        </button>
+      <button type="button" class="absolute right-8 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+        (click)="searchText=''; appliquerFiltre()">
+        <mat-icon>close</mat-icon>
+      </button>
       }
 
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+      <!-- Icône search -->
+      <span class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400">
+        <mat-icon>search</mat-icon>
+      </span>
+
+    </div>
+
   </div>
 
   <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z2">
@@ -59,20 +68,18 @@
 
           <mat-select-trigger>
             @if (u.actif) {
-              <mat-icon fontSet="material-symbols-rounded" class="icon-success">check_circle</mat-icon>
+            <mat-icon fontSet="material-symbols-rounded" class="icon-success">check_circle</mat-icon>
             } @else {
-              <mat-icon fontSet="material-symbols-rounded" class="icon-danger">cancel</mat-icon>
+            <mat-icon fontSet="material-symbols-rounded" class="icon-danger">cancel</mat-icon>
             }
           </mat-select-trigger>
 
           <mat-option [value]="true">
             <mat-icon fontSet="material-symbols-rounded" class="icon-success">check_circle</mat-icon>
-            Activé
           </mat-option>
 
           <mat-option [value]="false">
             <mat-icon fontSet="material-symbols-rounded" class="icon-danger">cancel</mat-icon>
-            Désactivé
           </mat-option>
 
         </mat-select>
@@ -81,34 +88,32 @@
     </ng-container>
 
     <!-- Actions -->
-<ng-container matColumnDef="actions">
-  <th mat-header-cell *matHeaderCellDef>Action</th>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
 
-  <td mat-cell *matCellDef="let u">
+      <td mat-cell *matCellDef="let u">
 
-    <mat-select class="select-actions" [value]="'default'">
+        <mat-select class="select-actions" [value]="'default'">
 
-      <!-- Option masquée pour éviter select-empty -->
-      <mat-option value="default" style="display:none;"></mat-option>
+          <!-- Option masquée pour éviter select-empty -->
+          <mat-option value="default" style="display:none;"></mat-option>
 
-      <mat-select-trigger>
-        <mat-icon fontSet="material-symbols-rounded" class="icon-action">settings</mat-icon>
-      </mat-select-trigger>
+          <mat-select-trigger>
+            <mat-icon fontSet="material-symbols-rounded" class="icon-action">settings</mat-icon>
+          </mat-select-trigger>
 
-      <mat-option (click)="modifierUtilisateur(u)">
-        <mat-icon fontSet="material-symbols-rounded" class="icon-primary">edit</mat-icon>
-        Modifier
-      </mat-option>
+          <mat-option>
+            <mat-icon fontSet="material-symbols-rounded" class="icon-primary">edit</mat-icon>
+          </mat-option>
 
-      <mat-option (click)="supprimerUtilisateur(u)">
-        <mat-icon fontSet="material-symbols-rounded" class="icon-danger">delete</mat-icon>
-        Supprimer
-      </mat-option>
+          <mat-option>
+            <mat-icon fontSet="material-symbols-rounded" class="icon-danger">delete</mat-icon>
+          </mat-option>
 
-    </mat-select>
+        </mat-select>
 
-  </td>
-</ng-container>
+      </td>
+    </ng-container>
 
 
 
@@ -119,6 +124,6 @@
 
   </table>
 
-  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
 
 </div>

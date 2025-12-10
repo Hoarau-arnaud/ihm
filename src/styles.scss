@@ -1,6 +1,12 @@
-// Angular Material theming
+/* 1️⃣ Règles Sass en premier */
 @use '@angular/material' as mat;
 
+/* 2️⃣ Ensuite Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3️⃣ Puis ton thème Material */
 html {
   @include mat.theme((
     color: (
@@ -20,3 +26,4 @@ body {
   margin: 0;
   height: 100%;
 }
+
