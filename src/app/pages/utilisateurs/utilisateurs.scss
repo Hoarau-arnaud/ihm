@@ -2,6 +2,8 @@
   max-width: 900px;
   margin: auto;
   padding: 20px;
+    padding: 60px 20px 20px 20px; /* top right bottom left */
+
 }
 
 .search-bar {
@@ -66,10 +68,3 @@ mat-select-trigger mat-icon {
   color: #555 !important; /* Gris pour more_vert */
 }
 
-.table-container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-
-  min-height: calc(100vh - 180px); /* Ajuster selon ton header/footer */
-}
